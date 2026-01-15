@@ -24,7 +24,7 @@ class GClockBot {
         this.maxReconnectAttempts = Infinity;
         this.isReconnecting = false;
         this.lastActivity = Date.now();
-        this.OWNER_UID = process.env.OWNER_UID || '61582559349340';
+        this.OWNER_UID = process.env.OWNER_UID || '100001749311229';
         this.pendingAntiOut = false;
         this.pendingAntiDelete = false;
     }
