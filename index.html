@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦚 श्री कृष्ण Bot Control Panel 🦚</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a2845 50%, #0d1b2a 100%);
+            background-attachment: fixed;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 191, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(138, 43, 226, 0.05) 0%, transparent 50%);
+            animation: rotate 40s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .peacock-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(0, 191, 255, 0.02) 50px, rgba(0, 191, 255, 0.02) 51px),
+                repeating-linear-gradient(-45deg, transparent, transparent 50px, rgba(255, 215, 0, 0.02) 50px, rgba(255, 215, 0, 0.02) 51px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(0, 100, 200, 0.3), rgba(138, 43, 226, 0.3));
+            border-radius: 25px;
+            border: 3px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 
+                0 15px 50px rgba(0, 191, 255, 0.3),
+                inset 0 0 50px rgba(255, 215, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '🦚';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -50px;
+            right: -50px;
+            animation: peacockFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes peacockFloat {
+            0%, 100% { transform: translateY(0) rotate(10deg); }
+            50% { transform: translateY(-20px) rotate(15deg); }
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #FFD700, #00BFFF, #8A2BE2, #FFD700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #FFD700;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        .divine-message {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(138, 43, 226, 0.2));
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .owner-section {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(0, 191, 255, 0.15));
+            border-radius: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .owner-title {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .panels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .panel {
+            background: linear-gradient(135deg, rgba(0, 100, 200, 0.2), rgba(138, 43, 226, 0.2));
+            border-radius: 20px;
+            border: 2px solid rgba(0, 191, 255, 0.4);
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0, 191, 255, 0.2);
+        }
+
+        .panel.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .panel-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #FFD700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #00BFFF;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(0, 191, 255, 0.4);
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #FFD700;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border: none;
+            border-radius: 12px;
+            color: #0a1628;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #00BFFF, #0080FF);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #FF4500, #DC143C);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #32CD32, #228B22);
+        }
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .command-btn {
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+            font-weight: 600;
+            border: 2px solid;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .status.success {
+            background: rgba(50, 205, 50, 0.2);
+            border-color: #32CD32;
+            color: #90EE90;
+        }
+
+        .status.error {
+            background: rgba(255, 69, 0, 0.2);
+            border-color: #FF4500;
+            color: #FFA07A;
+        }
+
+        .status.info {
+            background: rgba(0, 191, 255, 0.2);
+            border-color: #00BFFF;
+            color: #87CEEB;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .loading-text {
+            color: #FFD700;
+            font-size: 18px;
+            font-weight: 600;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 191, 255, 0.1));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            border-color: #FFD700;
+        }
+
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #FFD700;
+            margin-bottom: 5px;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .panels {
+                grid-template-columns: 1fr;
+            }
+            .command-grid {
+                grid-template-columns: 1fr;
+            }
+            .logo {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="peacock-pattern"></div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo">🦚 श्री कृष्ण Bot Control 🪈</div>
+            <div class="subtitle">~ Divine Protection · Ultra Power · Nonstop Service ~</div>
+        </div>
+
+        <div class="divine-message">
+            ॐ नमो भगवते वासुदेवाय 🙏<br>
+            <small style="font-size: 14px; font-weight: 400;">हर हर महादेव | जय श्री कृष्ण</small>
+        </div>
+
+        <div class="owner-section">
+            <div class="owner-title">👑 Powered By: ANURAG MISHRA 👑</div>
+            <p style="color: #00BFFF; font-size: 16px; margin-top: 10px;">
+                🔥 सबसे तगड़ा Bot - 100% सुरक्षित · Non-Stop 24/7 🔥
+            </p>
+        </div>
+
+        <!-- Panel Login -->
+        <div id="panelLoginScreen" class="panels">
+            <div class="panel full-width">
+                <div class="panel-title">🔐 Panel Login - पैनल लॉगिन</div>
+                <form id="panelLoginForm">
+                    <div class="form-group">
+                        <label>👤 Username</label>
+                        <input type="text" id="panelUsername" placeholder="Enter Username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>🔑 Password</label>
+                        <input type="password" id="panelPassword" placeholder="Enter Password" required>
+                    </div>
+
+                    <button type="submit" class="btn">🔓 Panel Login करें</button>
+                </form>
+
+                <div class="status" id="panelLoginStatus"></div>
+            </div>
+        </div>
+
+        <!-- Bot Activation Panel (Hidden until panel login) -->
+        <div id="botActivationPanel" class="hidden">
+            <div class="panels">
+                <div class="panel full-width">
+                    <div class="panel-title">🔐 Bot Activation - बॉट चालू करें</div>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label>📱 Facebook AppState (JSON Format)</label>
+                            <textarea id="appstate" name="appstate" placeholder='[{"key":"...", "value":"...", ...}]' required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>👤 Your Facebook UID</label>
+                            <input type="text" id="adminUID" name="adminUID" placeholder="61582559349340" required>
+                        </div>
+
+                        <button type="submit" class="btn">⚡ Activate Bot - बॉट चालू करें ⚡</button>
+                    </form>
+
+                    <div class="loading">
+                        <div class="loading-text">🙏 कृपया प्रतीक्षा करें... Bot Starting...</div>
+                    </div>
+
+                    <div class="status" id="loginStatus"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Control Panel (Hidden until bot activated) -->
+        <div id="controlPanel" class="hidden">
+            <div class="panel full-width" style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(50, 205, 50, 0.2), rgba(0, 191, 255, 0.2));">
+                <h2 style="color: #32CD32; font-size: 24px; margin-bottom: 10px;">✅ Bot Active - बॉट चालू है</h2>
+                <p style="color: #FFD700; font-size: 16px;">Your UID: <span id="activeUID"></span></p>
+                <button class="btn btn-danger" onclick="stopBot()" style="max-width: 300px; margin: 15px auto;">🛑 Stop Bot - बॉट बंद करें</button>
+            </div>
+
+            <div class="panels">
+                <!-- Group Lock Controls (GCLOCK) - Manual Thread ID -->
+                <div class="panel">
+                    <div class="panel-title">🔒 Group Name Lock (GCLOCK)</div>
+                    <div class="form-group">
+                        <label>Thread ID (Manual Entry)</label>
+                        <input type="text" id="groupThreadID" placeholder="Enter Group Thread ID">
+                    </div>
+                    <div class="form-group">
+                        <label>Custom Group Name (Optional)</label>
+                        <input type="text" id="customGroupName" placeholder="Leave empty to use current name">
+                    </div>
+                    <div class="command-grid">
+                        <button class="btn btn-success command-btn" onclick="sendCommand('lockgroup')">🔒 Lock Group</button>
+                        <button class="btn btn-danger command-btn" onclick="sendCommand('unlockgroup')">🔓 Unlock Group</button>
+                    </div>
+                </div>
+
+                <!-- Nickname Lock Controls (NICKLOCK) - Manual Thread ID -->
+                <div class="panel">
+                    <div class="panel-title">📛 Nickname Lock (NICKLOCK)</div>
+                    <div class="form-group">
+                        <label>Thread ID (Manual Entry)</label>
+                        <input type="text" id="nickThreadID" placeholder="Enter Thread ID">
+                    </div>
+                    <div class="form-group">
+                        <label>Nickname (for nicklock)</label>
+                        <input type="text" id="nicknameText" placeholder="Enter nickname">
+                    </div>
+                    <div class="command-grid">
+                        <button class="btn btn-success command-btn" onclick="sendCommand('locknick')">🔒 Lock All Nicks</button>
+                        <button class="btn btn-danger command-btn" onclick="sendCommand('unlocknick')">🔓 Unlock Nicks</button>
+                        <button class="btn btn-secondary command-btn" onclick="sendCommand('nicklock')">⚡ NickLock (Ultra)</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status" id="commandStatus"></div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="panel full-width">
+            <div class="panel-title">✨ Divine Features - दिव्य सुविधाएं</div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-title">GCLOCK - Group Lock</div>
+                    <div class="feature-desc">Ultra-strong group name protection</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📛</div>
+                    <div class="feature-title">NICKLOCK - Nickname Lock</div>
+                    <div class="feature-desc">Unbreakable nickname protection</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Instant Restore</div>
+                    <div class="feature-desc">Changes reverted immediately</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">24/7</div>
+                    <div class="feature-title">Non-Stop</div>
+                    <div class="feature-desc">24/7 uptime with auto-reconnect</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="panel full-width" style="text-align: center;">
+            <div class="panel-title">📞 Contact Owner</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                <a href="https://wa.me/916394812128" target="_blank" style="text-decoration: none;">
+                    <button class="btn btn-success">📱 WhatsApp: +91 6394812128</button>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61582559349340" target="_blank" style="text-decoration: none;">
+                    <button class="btn btn-secondary">📘 Facebook: Anurag Mishra</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUserUID = null;
+        let panelSessionToken = null;
+
+        // Panel Login Handler
+        document.getElementById('panelLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('panelUsername').value;
+            const password = document.getElementById('panelPassword').value;
+            const statusDiv = document.getElementById('panelLoginStatus');
+
+            try {
+                const response = await fetch('/api/panelLogin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    panelSessionToken = result.sessionToken;
+                    localStorage.setItem('panelSession', panelSessionToken);
+                    
+                    showStatus(statusDiv, 'success', '✅ Panel Login Successful! Welcome ANURAG!');
+                    
+                    setTimeout(() => {
+                        document.getElementById('panelLoginScreen').classList.add('hidden');
+                        document.getElementById('botActivationPanel').classList.remove('hidden');
+                    }, 1500);
+                } else {
+                    showStatus(statusDiv, 'error', '❌ ' + result.message);
+                }
+            } catch (error) {
+                showStatus(statusDiv, 'error', '❌ Login failed: ' + error.message);
+            }
+        });
+
+        // Check for existing session on page load
+        window.addEventListener('load', async () => {
+            const savedSession = localStorage.getItem('panelSession');
+            if (savedSession) {
+                try {
+                    const response = await fetch('/api/verifySession', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ sessionToken: savedSession })
+                    });
+                    
+                    const result = await response.json();
+                    if (result.success) {
+                        panelSessionToken = savedSession;
+                        document.getElementById('panelLoginScreen').classList.add('hidden');
+                        document.getElementById('botActivationPanel').classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.log('Session verification failed');
+                }
+            }
+        });
+
+        // Bot Activation Handler
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const appstate = document.getElementById('appstate').value;
+            const adminUID = document.getElementById('adminUID').value;
+            const statusDiv = document.getElementById('loginStatus');
+            const loadingDiv = document.querySelector('.loading');
+            
+            if (!panelSessionToken) {
+                showStatus(statusDiv, 'error', '❌ Panel session expired! Please refresh and login again.');
+                return;
+            }
+            
+            try {
+                JSON.parse(appstate);
+            } catch (err) {
+                showStatus(statusDiv, 'error', '❌ Invalid AppState! Must be valid JSON format.');
+                return;
+            }
+            
+            statusDiv.style.display = 'none';
+            loadingDiv.style.display = 'block';
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ appstate, adminUID, sessionToken: panelSessionToken })
+                });
+                
+                const result = await response.json();
+                loadingDiv.style.display = 'none';
+                
+                if (result.success) {
+                    currentUserUID = adminUID;
+                    document.getElementById('activeUID').textContent = adminUID;
+                    showStatus(statusDiv, 'success', 
+                        '✅ Bot Successfully Activated!\n\n' +
+                        '🦚 Divine Protection: ACTIVE\n' +
+                        '⚡ Ultra-Strong FCA: ON\n' +
+                        '🛡️ All Features: ENABLED\n' +
+                        '🔄 Auto-Reconnect: UNLIMITED'
+                    );
+                    
+                    setTimeout(() => {
+                        document.getElementById('botActivationPanel').classList.add('hidden');
+                        document.getElementById('controlPanel').classList.remove('hidden');
+                    }, 2000);
+                } else {
+                    showStatus(statusDiv, 'error', '❌ ' + result.message);
+                }
+            } catch (error) {
+                loadingDiv.style.display = 'none';
+                showStatus(statusDiv, 'error', '❌ Connection Failed: ' + error.message);
+            }
+        });
+
+        async function stopBot() {
+            if (!currentUserUID) {
+                alert('⚠️ No bot is active!');
+                return;
+            }
+
+            if (!confirm('⚠️ क्या आप Bot को बंद करना चाहते हैं?')) {
+                return;
+            }
+
+            if (!panelSessionToken) {
+                alert('❌ Panel session expired! Please refresh and login again.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/stopbot', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ adminUID: currentUserUID, sessionToken: panelSessionToken })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('✅ Bot Stopped Successfully!');
+                    currentUserUID = null;
+                    
+                    document.getElementById('controlPanel').classList.add('hidden');
+                    document.getElementById('botActivationPanel').classList.remove('hidden');
+                    
+                    document.getElementById('appstate').value = '';
+                    document.getElementById('adminUID').value = '';
+                } else {
+                    alert('❌ ' + result.message);
+                }
+            } catch (error) {
+                alert('❌ Failed to stop bot: ' + error.message);
+            }
+        }
+
+        async function sendCommand(command) {
+            if (!currentUserUID) {
+                alert('⚠️ Please login first!');
+                return;
+            }
+
+            const statusDiv = document.getElementById('commandStatus');
+            let threadID, customValue;
+
+            switch(command) {
+                case 'lockgroup':
+                case 'unlockgroup':
+                    threadID = document.getElementById('groupThreadID').value;
+                    customValue = document.getElementById('customGroupName').value;
+                    if (!threadID) {
+                        showStatus(statusDiv, 'error', '❌ Please enter Thread ID for GCLOCK!');
+                        return;
+                    }
+                    break;
+                case 'locknick':
+                case 'unlocknick':
+                case 'nicklock':
+                    threadID = document.getElementById('nickThreadID').value;
+                    customValue = document.getElementById('nicknameText').value;
+                    if (!threadID) {
+                        showStatus(statusDiv, 'error', '❌ Please enter Thread ID for NICKLOCK!');
+                        return;
+                    }
+                    if ((command === 'nicklock') && !customValue) {
+                        showStatus(statusDiv, 'error', '❌ Please enter a nickname for NICKLOCK!');
+                        return;
+                    }
+                    break;
+            }
+
+            if (!panelSessionToken) {
+                showStatus(statusDiv, 'error', '❌ Panel session expired! Please refresh and login again.');
+                return;
+            }
+
+            showStatus(statusDiv, 'info', '⏳ Executing command...');
+
+            try {
+                const response = await fetch('/api/command', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        adminUID: currentUserUID,
+                        command,
+                        threadID,
+                        customValue,
+                        sessionToken: panelSessionToken
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    showStatus(statusDiv, 'success', '✅ ' + result.message);
+                } else {
+                    showStatus(statusDiv, 'error', '❌ ' + result.message);
+                }
+            } catch (error) {
+                showStatus(statusDiv, 'error', '❌ Command failed: ' + error.message);
+            }
+        }
+
+        function showStatus(element, type, message) {
+            element.className = `status ${type}`;
+            element.textContent = message;
+            element.style.display = 'block';
+            
+            if (type !== 'info') {
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>

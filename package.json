@@ -1,0 +1,24 @@
+{
+  "name": "facebook-bot-gclock",
+  "version": "2.0.0",
+  "description": "Facebook Bot with Ultra-Strong Group & Nickname Locking - Powered by Latest FCA",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "facebook",
+    "bot",
+    "fca",
+    "dongdev"
+  ],
+  "author": "ANURAG MISHRA",
+  "license": "ISC",
+  "dependencies": {
+    "@dongdev/fca-unofficial": "^2.0.30",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "fs-extra": "^11.3.2",
+    "uuid": "^13.0.0"
+  }
+}
