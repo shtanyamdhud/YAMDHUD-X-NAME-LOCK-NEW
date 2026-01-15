@@ -15,8 +15,8 @@ const loginAttempts = new Map();
 const MAX_LOGIN_ATTEMPTS = 5;
 const LOGIN_TIMEOUT = 15 * 60 * 1000;
 
-const PANEL_USERNAME = 'ANURAGXAROHI';
-const PANEL_PASSWORD = 'HATERKEPAPAJI';
+const PANEL_USERNAME = 'PRINCE';
+const PANEL_PASSWORD = 'PRINCE';
 
 function cleanupLoginAttempts() {
     const now = Date.now();
