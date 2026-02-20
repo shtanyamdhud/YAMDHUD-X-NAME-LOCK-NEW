@@ -54,7 +54,7 @@ function loadUsers() {
 
   // Default admin user
 
-  return [{ username: "Prince", password: "Prince" }];
+  return [{ username: "YAMDHUD", password: "9MAN520" }];
 
 }
 
